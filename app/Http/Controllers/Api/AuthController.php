@@ -81,28 +81,21 @@ class AuthController extends Controller
   { 
 
     $user = Auth::user(); 
-
     $response =  self::HTTP_OK;
-
     return $user ? $this->get_http_response( "success", $user, $response )
                    : $this->get_http_response( "Unauthenticated user", $user, $response );
 
   } 
 
   public function get_http_response( string $status = null, $data = null, $response ){
-
     return response()->json([
-
         'status' => $status, 
         'data' => $data,
-
     ], $response);
   }
 
   public function get_user_token( $user, string $token_name = null ) {
-
      return $user->createToken($token_name)->accessToken; 
-
   }
 
 }
