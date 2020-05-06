@@ -23,3 +23,6 @@ Route::post('register', 'Api\AuthController@register');
 Route::middleware('auth:api')->group(function(){
   Route::post('details', 'Api\AuthController@get_user_details_info');
 });
+
+// EndPoint API
+Route::get('v1/user_data/{id}', 'Api\AuthController@get_user');

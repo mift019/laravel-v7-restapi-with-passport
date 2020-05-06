@@ -21,42 +21,29 @@ class AuthController extends Controller
   public function login(Request $request){ 
 
     $credentials = [
-
         'email' => $request->email, 
         'password' => $request->password
-
     ];
 
     if( auth()->attempt($credentials) ){ 
-
       $user = Auth::user(); 
-      
       $token['token'] = $this->get_user_token($user,"TestToken");
-
       $response = self::HTTP_OK;
-
       return $this->get_http_response( "success", $token, $response );
-
-    } else { 
-
+    } 
+    else { 
       $error = "Unauthorized Access";
-
       $response = self::HTTP_UNAUTHORIZED;
-
       return $this->get_http_response( "Error", $error, $response );
     } 
-
   }
     
-  public function register(Request $request) 
-  { 
+  public function register(Request $request){ 
     $validator = Validator::make($request->all(), [ 
-
       'name' => 'required', 
       'email' => 'required|email', 
       'password' => 'required', 
       'password_confirmation' => 'required|same:password', 
-
     ]);
 
     if ($validator->fails()) { 
@@ -64,7 +51,6 @@ class AuthController extends Controller
     }
 
     $data = $request->all(); 
-
     $data['password'] = Hash::make($data['password']);
     $user = User::create($data); 
 
@@ -73,13 +59,10 @@ class AuthController extends Controller
     $success['password'] =  $user->password;
     $success['token'] = $this->get_user_token($user,"TestToken");
     $response =  self::HTTP_CREATED;
-
     return $this->get_http_response( "success", $success, $response );
   }
     
-  public function get_user_details_info() 
-  { 
-
+  public function get_user_details_info(){ 
     $user = Auth::user(); 
     $response =  self::HTTP_OK;
     return $user ? $this->get_http_response( "success", $user, $response )
@@ -96,6 +79,11 @@ class AuthController extends Controller
 
   public function get_user_token( $user, string $token_name = null ) {
      return $user->createToken($token_name)->accessToken; 
+  }
+
+  public function get_user( $id ){
+    $data_user = User::where('id', '=', $id)->first();
+    return response()->json( $data_user );
   }
 
 }
