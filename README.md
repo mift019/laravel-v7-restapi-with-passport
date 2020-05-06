@@ -11,7 +11,7 @@
  7. run php artisan serve
  
  how to check API
- 1. open postman
- 2. run with http://localhost:8000/api/login
+ 1. open postman and testing api
+ 2. http://localhost:8000/api/login
  3. http://localhost:8000/api/register
- 4. http://localhost:8000/api/details_user
+ 4. http://localhost:8000/api/details
