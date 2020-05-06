@@ -15,3 +15,6 @@
  2. http://localhost:8000/api/login
  3. http://localhost:8000/api/register
  4. http://localhost:8000/api/details
+ 
+ endpoint API
+ http://localhost:8000/api/v1/user_data/{id}
